@@ -8,6 +8,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // only this worked too:
     // domains: ['cdn.sanity.io'],
     remotePatterns: [
       {

@@ -13,19 +13,21 @@ export default async function Home() {
   // console.log(products);
 
   return (
-    <div className="px-6">
+    <div className="px-4">
       <div className="m-auto max-w-5xl">
-        <h1 className="font-bold text-5xl mb-12 mt-3">
+        <h1 className="font-bold text-5xl pb-12 pt-3">
           <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
             Map
           </span>{' '}
           products here
         </h1>
-        <div className="grid grid-cols-3 gap-4">
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {products &&
             products.map((product) => {
               return (
                 <Link
+                  className="group"
                   key={product._id}
                   href={`/products/${product.product_slug}`}
                 >
@@ -38,14 +40,14 @@ export default async function Home() {
                           height={500}
                           src={product.product_image}
                           // place image? center?
-                          className="aspect-4/5 hover:scale-125 object-cover transition"
+                          className="aspect-4/5 hover:scale-105 object-cover transition duration-200"
                         />
                       </div>
                     )}
-                    <h2 className="font-bold text-purple-600 text-xl mb-1">
+                    <h2 className="font-bold text-purple-600 text-xl mb-1 group-hover:transition-colors group-hover:duration-200 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:via-red-500 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent">
                       {product.product_title}
                     </h2>
-                    <p className="text-sm">
+                    <p className="text-md font-medium">
                       {product.product_price ? product.product_price : 0} SEK
                     </p>
                   </div>
