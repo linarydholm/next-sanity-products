@@ -4,6 +4,7 @@
 
 // import your client to use
 import { ProductProps } from '@/types/Product.types';
+import { PageProps } from '@/types/Page.types';
 import { client } from './client';
 
 // I don't have to import groq (anymore?)
@@ -64,4 +65,42 @@ export async function getProduct(slug: string): Promise<ProductProps> {
   );
 
   return product;
+}
+
+// (): Promise<PageProps[]> returns a Promise with the type PageProps
+// returns what we need in the navbar (we don't need content)
+export async function getPages(): Promise<PageProps[]> {
+  const pages = client.fetch(
+    `*[_type == "pages"]{
+      _id,
+      _createdAt,
+      title,
+      "slug": slug.current,
+    }`,
+    {},
+    {
+      next: { tags: ['pages'] },
+    }
+  );
+
+  return pages;
+}
+
+// returns...
+export async function getPage(slug: string): Promise<PageProps> {
+  const page = client.fetch(
+    `*[_type == "pages" && slug.current == $slug][0]{
+      _id,
+      _createdAt,
+      title,
+      "slug": slug.current,
+      content,
+    }`,
+    { slug },
+    {
+      next: { tags: ['page'] },
+    }
+  );
+
+  return page;
 }
